@@ -1,35 +1,9 @@
 - hosts: all
   become: yes
   tasks:
-#    - apt:
-#       pkg:
-#          - ansible
-#    - shell: wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-#    - shell:
-#        cmd: |
-#          cat <<EOF | sudo tee -a /etc/apt/sources.list
-#          deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
-#          deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
-#          EOF
-#    - apt:
-#        update_cache: yes
-#        pkg:
-#          - clang-7
-#          - libclang-7-dev 
-#          - llvm-7
-#          - llvm-7-dev
-#          - bison 
-#          - cmake 
-#          - flex 
-#          - g++ 
-#          - git 
-#          - libelf-dev
-#          - zlib1g-dev 
-#          - libfl-dev
-#    - command: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD
-#    - shell: echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/iovisor.list 
-     - shell: apt update && apt install -y bcc-tools libbcc-examples linux-headers-$(uname -r)
-     - shell: git clone https://github.com/iovisor/bpftrace
-     - shell: cd bpftrace && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=DEBUG .. && make -j4 && make install
+     - apt:
+         pkg:
+           - ansible
+           - bcc
      - shell: echo 'echo -e "\\033]1337;SetProfile=Prod\\a"' >> /home/ubuntu/.bashrc
      - shell: echo 'echo -e "\\033]1337;SetProfile=Default\\a"' >> /home/ubuntu/.bash_logout
