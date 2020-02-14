@@ -1,0 +1,25 @@
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: wait connection
+      shell: |
+        until ssh -i {{ansible_ssh_private_key_file}} -o StrictHostKeyChecking=no -o ConnectTimeout=5 {{ansible_user}}@{{ansible_host}} -p {{ansible_port|default(22)}} echo ok 2>&1;
+        do
+          :;
+        done
+      delegate_to: localhost
+    - name: apt update
+      raw: |
+        until apt update;
+        do
+          echo sleep;
+          sleep 1;
+        done
+    - name: apt install python
+      raw: |
+        until apt install -y python;
+        do
+          echo sleep;
+          sleep 1;
+        done

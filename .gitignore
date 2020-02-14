@@ -1,0 +1,4 @@
+.terraform
+*.retry
+*.tfstate*
+public_master_ip
